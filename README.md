@@ -148,6 +148,30 @@ export OPENROUTER_API_KEY=...      # OpenRouter
 export ALPHA_VANTAGE_API_KEY=...   # Alpha Vantage
 ```
 
+For experimental ChatGPT/Codex subscription access without an OpenAI Platform
+API key, choose `Codex OAuth (ChatGPT subscription)` in the CLI. If no saved
+Codex OAuth token is available, the CLI starts the login flow immediately and
+lets you choose browser login or device-code login. It then fetches the current
+Codex model list for your ChatGPT account when you select quick and deep models,
+so newly available models appear without a code change. If the model fetch
+fails, choose `Custom model ID` and enter a model manually.
+
+Codex OAuth uses the ChatGPT/Codex subscription backend rather than the OpenAI
+Platform API. It does not require `OPENAI_API_KEY`, but it depends on
+ChatGPT/Codex backend behavior that may change. Tokens are saved to
+`~/.tradingagents/cache/codex_oauth.json` with owner-only permissions by
+default. Override the location with `TRADINGAGENTS_CODEX_OAUTH_FILE`. To remove
+the saved token:
+
+```bash
+python scripts/codex_oauth_logout.py
+```
+
+`codex_oauth_smoke.py` is a manual live check for your local account and should
+not be required in CI. You can also run `python scripts/codex_oauth_login.py`
+or `python scripts/codex_oauth_login.py --device` manually if you want to log in
+before starting the CLI.
+
 For enterprise providers (e.g. Azure OpenAI, AWS Bedrock), copy `.env.enterprise.example` to `.env.enterprise` and fill in your credentials.
 
 For local models, configure Ollama with `llm_provider: "ollama"` in your config.

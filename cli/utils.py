@@ -174,6 +174,93 @@ def select_openrouter_model() -> str:
     return choice
 
 
+def _fetch_codex_models() -> List[Tuple[str, str]]:
+    """Fetch Codex OAuth models available to the logged-in ChatGPT account."""
+    from tradingagents.llm_clients.codex_oauth_client import fetch_codex_model_options
+
+    try:
+        return fetch_codex_model_options()
+    except Exception as e:
+        console.print(f"\n[yellow]Could not fetch Codex OAuth models: {e}[/yellow]")
+        return []
+
+
+def select_codex_model(mode: str) -> str:
+    """Select a Codex OAuth model from the account's live backend list."""
+    models = _fetch_codex_models()
+
+    choices = [questionary.Choice(name, value=mid) for name, mid in models]
+    choices.append(questionary.Choice("Custom model ID", value="custom"))
+
+    choice = questionary.select(
+        f"Select Codex OAuth Model ({mode}-thinking):",
+        choices=choices,
+        instruction="\n- Use arrow keys to navigate\n- Press Enter to select",
+        style=questionary.Style([
+            ("selected", "fg:magenta noinherit"),
+            ("highlighted", "fg:magenta noinherit"),
+            ("pointer", "fg:magenta noinherit"),
+        ]),
+    ).ask()
+
+    if choice is None:
+        console.print("\n[red]No Codex model selected. Exiting...[/red]")
+        exit(1)
+
+    if choice == "custom":
+        return _prompt_custom_model_id()
+
+    return choice
+
+
+def ensure_codex_oauth_login() -> None:
+    """Ensure Codex OAuth is configured when the provider is selected."""
+    from tradingagents.llm_clients.codex_oauth import (
+        CodexOAuthStore,
+        get_valid_tokens,
+        run_device_login_flow,
+        run_login_flow,
+    )
+
+    store = CodexOAuthStore()
+    try:
+        get_valid_tokens(store)
+        return
+    except RuntimeError as e:
+        console.print(f"\n[yellow]{e}[/yellow]")
+
+    choice = questionary.select(
+        "Codex OAuth login required:",
+        choices=[
+            questionary.Choice("Open browser login", value="browser"),
+            questionary.Choice("Use device code", value="device"),
+            questionary.Choice("Cancel", value="cancel"),
+        ],
+        instruction="\n- Use arrow keys to navigate\n- Press Enter to select",
+        style=questionary.Style([
+            ("selected", "fg:magenta noinherit"),
+            ("highlighted", "fg:magenta noinherit"),
+            ("pointer", "fg:magenta noinherit"),
+        ]),
+    ).ask()
+
+    if choice is None or choice == "cancel":
+        console.print("\n[red]Codex OAuth login cancelled. Exiting...[/red]")
+        exit(1)
+
+    try:
+        if choice == "device":
+            tokens = run_device_login_flow(store)
+        else:
+            tokens = run_login_flow(store)
+    except RuntimeError as e:
+        console.print(f"\n[red]Codex OAuth login failed: {e}[/red]")
+        exit(1)
+
+    account = tokens.account_id or "unknown account"
+    console.print(f"\n[green]Codex OAuth login saved for {account}.[/green]")
+
+
 def _prompt_custom_model_id() -> str:
     """Prompt user to type a custom model ID."""
     return questionary.text(
@@ -186,6 +273,9 @@ def _select_model(provider: str, mode: str) -> str:
     """Select a model for the given provider and mode (quick/deep)."""
     if provider.lower() == "openrouter":
         return select_openrouter_model()
+
+    if provider.lower() == "codex":
+        return select_codex_model(mode)
 
     if provider.lower() == "azure":
         return questionary.text(
@@ -242,6 +332,7 @@ def select_llm_provider() -> tuple[str, str | None]:
         ("OpenRouter", "openrouter", "https://openrouter.ai/api/v1"),
         ("Azure OpenAI", "azure", None),
         ("Ollama", "ollama", "http://localhost:11434/v1"),
+        ("Codex OAuth (ChatGPT subscription)", "codex", None),
     ]
 
     choice = questionary.select(
@@ -265,6 +356,8 @@ def select_llm_provider() -> tuple[str, str | None]:
         exit(1)
 
     provider, url = choice
+    if provider == "codex":
+        ensure_codex_oauth_login()
     return provider, url
 
 
