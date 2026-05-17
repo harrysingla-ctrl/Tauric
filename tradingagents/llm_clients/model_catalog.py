@@ -101,6 +101,30 @@ MODEL_OPTIONS: ProviderModeOptions = {
             ("Claude Sonnet 4.6 - Best speed and intelligence balance", "claude-sonnet-4-6"),
         ],
     },
+    "claude-code": {
+        "quick": [
+            ("Claude Code Sonnet alias - uses local claude CLI", "sonnet"),
+            ("Claude Code Haiku alias - uses local claude CLI", "haiku"),
+            ("Custom Claude Code model/alias", "custom"),
+        ],
+        "deep": [
+            ("Claude Code Opus alias - uses local claude CLI", "opus"),
+            ("Claude Code Sonnet alias - uses local claude CLI", "sonnet"),
+            ("Custom Claude Code model/alias", "custom"),
+        ],
+    },
+    "codex": {
+        "quick": [
+            ("Codex GPT-5.4 Mini - local Codex CLI", "gpt-5.4-mini"),
+            ("Codex GPT-5.5 - local Codex CLI", "gpt-5.5"),
+            ("Custom Codex model/profile model", "custom"),
+        ],
+        "deep": [
+            ("Codex GPT-5.5 - local Codex CLI", "gpt-5.5"),
+            ("Codex GPT-5.4 - local Codex CLI", "gpt-5.4"),
+            ("Custom Codex model/profile model", "custom"),
+        ],
+    },
     "google": {
         "quick": [
             ("Gemini 3 Flash - Next-gen fast (preview)", "gemini-3-flash-preview"),
