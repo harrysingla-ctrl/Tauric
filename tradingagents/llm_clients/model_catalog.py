@@ -175,6 +175,55 @@ MODEL_OPTIONS: ProviderModeOptions = {
             ("Custom model ID", "custom"),
         ],
     },
+    "llamacpp": {
+        "quick": [
+            ("Llama 3.2 3B - Fast, lightweight", "llama-3.2-3b-instruct"),
+            ("Mistral 7B - Balanced speed/quality", "mistral-7b-instruct-v0.3"),
+            ("Custom model ID", "custom"),
+        ],
+        "deep": [
+            ("Mixtral 8x7B - Higher quality, slower", "mixtral-8x7b-instruct-v0.1"),
+            ("Llama 3.1 8B - Good general purpose", "llama-3.1-8b-instruct"),
+            ("Custom model ID", "custom"),
+        ],
+    },
+    "nvidia": {
+        "quick": [
+            ("Nemotron 3 Nano 30B - Free, fast, 262K ctx", "nvidia/nemotron-3-nano-30b-a3b"),
+            ("Llama 3.1 8B - Free, strong baseline", "meta/llama-3.1-8b-instruct"),
+            ("Custom model ID", "custom"),
+        ],
+        "deep": [
+            ("Nemotron 3 Super 120B - Free, MoE, 1M ctx, SOTA", "nvidia/nemotron-3-super-120b-a12b"),
+            ("Custom model ID", "custom"),
+        ],
+    },
+    "opencode": {
+        "quick": [
+            ("Big Pickle - Free, stealth model, 200K ctx", "big-pickle"),
+            ("DeepSeek V4 Flash Free - Free, fast", "deepseek-v4-flash-free"),
+            ("Custom model ID", "custom"),
+        ],
+        "deep": [
+            ("Big Pickle - Free, stealth model, 200K ctx", "big-pickle"),
+            ("DeepSeek V4 Flash Free - Free, fast", "deepseek-v4-flash-free"),
+            ("Custom model ID", "custom"),
+        ],
+    },
+    "groq": {
+        "quick": [
+            ("Llama 3.3 70B - Fast, high quality", "llama-3.3-70b-versatile"),
+            ("Llama 3.1 8B - Lightweight, fast", "llama-3.1-8b-instant"),
+            ("Mixtral 8x7B - MoE, balanced", "mixtral-8x7b-32768"),
+            ("Custom model ID", "custom"),
+        ],
+        "deep": [
+            ("Llama 3.3 70B - Versatile, 128K ctx", "llama-3.3-70b-versatile"),
+            ("DeepSeek R1 Distill Llama 70B - Reasoning", "deepseek-r1-distill-llama-70b"),
+            ("Mixtral 8x7B - 32K context", "mixtral-8x7b-32768"),
+            ("Custom model ID", "custom"),
+        ],
+    },
 }
 
 
