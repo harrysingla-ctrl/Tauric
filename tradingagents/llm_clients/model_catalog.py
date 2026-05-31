@@ -72,6 +72,21 @@ _MINIMAX_MODELS: Dict[str, List[ModelOption]] = {
     ],
 }
 
+_GITHUB_COPILOT_MODELS: Dict[str, List[ModelOption]] = {
+    "quick": [
+        ("OpenAI GPT-4.1 - Smartest non-reasoning model", "gpt-4.1"),
+        ("OpenAI GPT-4o - Balanced multimodal", "gpt-4o"),
+        ("OpenAI o3 Mini - Lightweight reasoning", "o3-mini"),
+        ("Custom model ID", "custom"),
+    ],
+    "deep": [
+        ("OpenAI GPT-4.1 - Smartest non-reasoning model", "gpt-4.1"),
+        ("OpenAI GPT-4o - Balanced multimodal", "gpt-4o"),
+        ("OpenAI o3 Mini - Lightweight reasoning", "o3-mini"),
+        ("Custom model ID", "custom"),
+    ],
+}
+
 
 MODEL_OPTIONS: ProviderModeOptions = {
     "openai": {
@@ -153,6 +168,7 @@ MODEL_OPTIONS: ProviderModeOptions = {
     # so the two provider keys share one model list.
     "minimax": _MINIMAX_MODELS,
     "minimax-cn": _MINIMAX_MODELS,
+    "github_copilot": _GITHUB_COPILOT_MODELS,
     # OpenRouter: fetched dynamically. Azure: any deployed model name.
     # Ollama display labels intentionally omit a "local" marker — the
     # endpoint is now configurable via OLLAMA_BASE_URL, so the same labels
