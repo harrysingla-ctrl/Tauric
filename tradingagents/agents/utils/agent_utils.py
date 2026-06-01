@@ -29,6 +29,26 @@ from tradingagents.agents.utils.market_data_validation_tools import (
 
 logger = logging.getLogger(__name__)
 
+# Re-export the analyst tools imported above so this module remains the
+# single import surface the analysts depend on. Declaring `__all__`
+# explicitly prevents lint/type tools (ruff F401, pyright reportUnusedImport,
+# etc.) from flagging — and potentially auto-deleting — these imports as
+# "unused" in this file.
+__all__ = [
+    "build_instrument_context",
+    "create_msg_delete",
+    "get_balance_sheet",
+    "get_cashflow",
+    "get_fundamentals",
+    "get_global_news",
+    "get_income_statement",
+    "get_indicators",
+    "get_insider_transactions",
+    "get_language_instruction",
+    "get_news",
+    "get_stock_data",
+]
+
 
 def get_language_instruction() -> str:
     """Return a prompt instruction for the configured output language.
