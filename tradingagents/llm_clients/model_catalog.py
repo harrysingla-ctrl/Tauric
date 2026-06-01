@@ -175,6 +175,16 @@ MODEL_OPTIONS: ProviderModeOptions = {
             ("Custom model ID", "custom"),
         ],
     },
+    "nvidia": {
+        "quick": [
+            ("nemotron-3-nano-omni-30b-a3b-reasoning", "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning"),
+            ("Custom model ID", "custom"),
+        ],
+        "deep": [
+            ("nemotron-3-super-120b-a12b", "nvidia/nemotron-3-super-120b-a12b"),
+            ("Custom model ID", "custom"),
+        ],
+    },
 }
 
 
