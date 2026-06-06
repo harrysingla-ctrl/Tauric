@@ -153,6 +153,23 @@ MODEL_OPTIONS: ProviderModeOptions = {
     # so the two provider keys share one model list.
     "minimax": _MINIMAX_MODELS,
     "minimax-cn": _MINIMAX_MODELS,
+    # Codex: under ChatGPT-subscription auth the backend whitelists a
+    # small fixed set of GPT-5.x IDs; raw API model names like
+    # ``gpt-5``, ``o4-mini``, ``gpt-5.5-mini`` come back as
+    # ``invalid_request_error``. Users on ``OPENAI_API_KEY`` mode can
+    # enter anything via "Custom model ID".
+    "codex": {
+        "quick": [
+            ("GPT-5.4 Mini - Subscription quick tier, fast", "gpt-5.4-mini"),
+            ("GPT-5.4 - Subscription tier, balanced", "gpt-5.4"),
+            ("Custom model ID", "custom"),
+        ],
+        "deep": [
+            ("GPT-5.5 - Subscription deep tier, latest frontier", "gpt-5.5"),
+            ("GPT-5.4 - Subscription tier, previous-gen frontier", "gpt-5.4"),
+            ("Custom model ID", "custom"),
+        ],
+    },
     # OpenRouter: fetched dynamically. Azure: any deployed model name.
     # Ollama display labels intentionally omit a "local" marker — the
     # endpoint is now configurable via OLLAMA_BASE_URL, so the same labels
