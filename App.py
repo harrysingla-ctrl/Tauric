@@ -164,7 +164,7 @@ st.markdown("---")
 PROVIDER_MODELS = {
     "openai":     {"deep": ["gpt-5.5", "gpt-5.4", "gpt-4.1"],        "quick": ["gpt-5.4-mini", "gpt-5.4-nano", "gpt-4.1-mini"]},
     "anthropic":  {"deep": ["claude-opus-4-6", "claude-sonnet-4-6"],   "quick": ["claude-sonnet-4-6", "claude-haiku-4-5-20251001"]},
-    "google":     {"deep": ["gemini-2.5-pro", "gemini-2.0-pro"],     "quick": ["gemini-3.0-flash", "gemini-3.0-flash-lite"]},
+    "google":     {"deep": ["gemini-2.5-pro", "gemini-2.5-flash"],     "quick": ["gemini-3-flash-preview", "gemini-3.1-flash-lite"]},
     "xai":        {"deep": ["grok-4", "grok-3"],                       "quick": ["grok-3-fast", "grok-3-mini-fast"]},
     "deepseek":   {"deep": ["deepseek-reasoner", "deepseek-chat"],     "quick": ["deepseek-chat"]},
     "ollama":     {"deep": ["llama3.3", "mistral", "qwen2.5"],         "quick": ["llama3.2", "phi4", "gemma3"]},
